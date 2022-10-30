@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+
+  library-management:
+    image: library-management:dev
+    build:
+      context: ./library
+      dockerfile: dev
+    container_name: library-management
+    volumes:
+      - "./library:/usr/src/library-management"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    tty: true
+    ports:
+      - "8081:8080"
+      - "35729:35729"
+      - "5000:5000"
+    restart: always
+
+  client:
+    build: 
+      context: ./client
+      dockerfile: dev
+    volumes:
+      - "./client:/usr/client"
+      - "/usr/client/node_modules/"
+    ports:
+      - "3010:3010"
+      - "8080:5173"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    tty: true
+    restart: always

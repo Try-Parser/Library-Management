@@ -1,0 +1,11 @@
+FROM node:18.9.1
+
+ADD . /usr/client
+
+WORKDIR /usr/client
+
+RUN npm install npm@latest -g
+
+RUN npm install
+
+CMD [ "npm", "run", "dev" ]

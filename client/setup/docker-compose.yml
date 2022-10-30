@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  client:
+    build: 
+      context: .
+      dockerfile: dev
+    volumes:
+      - ".:/usr/etrade"
+    ports:
+      - "8000:5000"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    stdin_open: true
+    tty: true
+    ports:
+      - "8080:8080"
+    restart: always
